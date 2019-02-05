@@ -1,0 +1,11 @@
+<html>
+<body>
+    <!-- Login Form -->
+    <form id="logged_out" method="get" action="{% url 'logout' %}">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <input type="submit" value="logged_out" />
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+{% load static %}
+
+<html>
+	<head>
+		<title>Django Girls blog</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="{% static 'css/base.css' %}">
+	</head>
+
+	<body>
+		<div>
+			<h1><a href="/">Insta min</a></h1>
+		</div>
+
+		{% if user.is_active %}
+		<div align="right">
+			<li>{{user.username}}</li>
+		</div>
+		<div align="right">
+        	<li><a href="/accounts/logout">로그아웃</a></li>
+    	</div>
+		<div align="right">
+        	<li><a href="/posts/create">게시물 등록</a></li>
+    	</div>
+
+    	{% for posts in data %}
+			<a href="{% url 'page' posts.account %}"> {{ posts.account }} <br>
+			<img src = "{{ posts.photo.url }}"  width="400" height="300"/> <br>
+        	{{ posts.text }} <br> <br> <br> <br>
+    	{% endfor %}
+		{% else %}
+		<div align="right">
+    	    <right>
+        	<li><a href="/accounts/login">로그인</a></li>
+        	</right>
+    	</div>
+
+    	<div align="right">
+        	<li><a href="/accounts/signup">회원가입</a></li>
+    	</div>
+		{% endif %}
+
+
+		<div class="content container">
+    	<div class="row">
+        <div class="col-md-8">
+			<div class="post">
+				<div class="date">
+					<p>instagram</p>
+				</div>
+                    <h1><a href="">instagram</a></h1>
+                    <p>instagram</p>
+                </div>
+        	</div>
+    	</div>
+		</div>
+	</body>
+
+</html>

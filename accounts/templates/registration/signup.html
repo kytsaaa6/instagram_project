@@ -1,0 +1,11 @@
+<html>
+<body>
+    <!-- Sign Up Form -->
+    <form id="signup" method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
+        {{ userform.as_p }}
+        <input type="submit" value="join" />
+    </form>
+
+</body>
+</html>

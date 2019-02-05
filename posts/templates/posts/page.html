@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    	{% for posts in postz %}
+			{{ posts.account }} <br>
+			<img src = "{{ posts.photo.url }}"  width="400" height="300"/> <br>
+        	{{ posts.text }} <br> <br> <br> <br>
+    	{% endfor %}
+</body>
+</html>
