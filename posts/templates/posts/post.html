@@ -1,0 +1,15 @@
+<html>
+<body>
+    {% if user.is_active %}
+        <li><a href="/posts/create">Post 등록</a></li>
+        <li><a href="/accounts/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+    {% for post in data %}
+        <li><span class="glyphicon glyphicon-user"></span> <a href="{% url 'post_mypage' post.account %}">{{ user.username }}</a></li>
+        <br><br><br><br>{{ post.account }}<br><img src="{{ post.photo.url  }}" width="400" height="300"/> <br>  {{ post.text}}
+    {% endfor %}
+    {% else %}
+        <li><a href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="/accounts/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    {% endif %}
+</body>
+</html>

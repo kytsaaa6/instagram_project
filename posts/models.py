@@ -1,3 +1,11 @@
 from django.db import models
+from accounts.models import Account
 
-# Create your models here.
+
+class Post(models.Model):
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    photo = models.ImageField(blank=True)
+    text = models.TextField()
+
+#    def __str__(self):
+#        return self.account
