@@ -7,5 +7,6 @@ class Post(models.Model):
     photo = models.ImageField(blank=True)
     text = models.TextField()
 
-#    def __str__(self):
-#        return self.account
+    def __str__(self):
+       return self.account
+

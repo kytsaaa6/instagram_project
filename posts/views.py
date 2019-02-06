@@ -1,26 +1,26 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from posts.models import Post
 from accounts.models import Account
 from posts.forms import PostForm
 
+
 def post(request):
     data = Post.objects.all()
     context = {
-        'data': data,
+        'data': data
     }
     return render(request, 'posts/post.html', context)
 
 
-def mypage(request, account):
+def my_page(request, account):
     member = Account.objects.get(username=account)
-    data = Post.objects.filter(account=member)
     context = {
-        'data': data
+        'data': member.post_set.all,
     }
     return render(request, 'posts/post_mypage.html', context)
 
 
-def create(request):
+def create(request, account):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -31,10 +31,10 @@ def create(request):
     else:
         form = PostForm()
 
-    return render(request, 'posts/post_create.html', {'form': form})
+    return render(request, 'posts/post_create.html', {'form': form} )
 
 
-def update(request, account, post_id):
+def update(request):
     pass
 
 
