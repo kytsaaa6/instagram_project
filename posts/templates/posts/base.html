@@ -15,17 +15,17 @@
 
 		{% if user.is_active %}
 		<div align="right">
-			<li>{{user.username}}</li>
+			<li><a href="{% url 'mypage' user.username %}">{{user.username}}</li>
 		</div>
 		<div align="right">
         	<li><a href="/accounts/logout">로그아웃</a></li>
     	</div>
 		<div align="right">
-        	<li><a href="/posts/create">게시물 등록</a></li>
+        	<li><a href="/posts/create/go">게시물 등록</a></li>
     	</div>
 
     	{% for posts in data %}
-			<a href="{% url 'page' posts.account %}"> {{ posts.account }} <br>
+			{{ posts.account }} <br>
 			<img src = "{{ posts.photo.url }}"  width="400" height="300"/> <br>
         	{{ posts.text }} <br> <br> <br> <br>
     	{% endfor %}

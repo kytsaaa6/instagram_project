@@ -11,14 +11,12 @@ def post(request):
     }
     return render(request, 'posts/base.html', context)
 
-def mypage(request, account):
+def mypage(request, username):
     if request.method == 'GET':
-        data = Account.objects.get(username=account)
-        postz = Post.objects.filter(account=data)
+        data = Post.objects.all()
+        data = data.filter(account=request.user)
         context = {
             'data':data,
-            'postz':postz,
-
         }
     return render(request, 'posts/page.html', context)
 
