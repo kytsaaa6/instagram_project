@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ user.username }}</title>
+    <title></title>
 </head>
 <body>
     {% if user.is_active %}
-        <li><a href="/posts/create">Post 등록</a></li>
-        <li><span class="glyphicon glyphicon-user"></span>{{ user.username }}</li>
-        <li><a href="/accounts/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-        <br><br><br><br><br>
+        <li><a href="/posts"><span class="glyphicon glyphicon-user"></span>Home</a></li>
+        <li><span class="glyphicon glyphicon-user"></span><a href="{% url 'post_mypage' user.username %}">{{ user.username }} </a></li>
+        <li><a href="/accounts/logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+        <li><a href="/posts/{{ user.username }}/create">Post 등록</a></li>
     {% for post in data %}
-        <br><br><br>{{ post.account }}<br><img src="{{ post.photo.url  }}" width="400" height="300"/> <br>  {{ post.text}}
+        <br><br><br><br><br><a href="{% url 'post_mypage' post.account %}">{{ post.account }}</a>
+        <br><img src="{{ post.photo.url  }}" width="400" height="300"/> <br>  {{ post.text}}
     {% endfor %}
     {% else %}
         <li><a href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

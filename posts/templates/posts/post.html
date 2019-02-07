@@ -1,11 +1,44 @@
 <html>
 <body>
     {% if user.is_active %}
-        <li><a href="/posts/create">Post 등록</a></li>
-        <li><a href="/accounts/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        <li><a href="/posts"><span class="glyphicon glyphicon-user"></span>Home</a></li>
+        <li><span class="glyphicon glyphicon-user"></span><a href="{% url 'post_mypage' user.username %}">{{ user.username }}</a></li>
+        <li><a href="/accounts/logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+        <li><a href="/posts/{{ user.username }}/create">Post 등록</a></li>
     {% for post in data %}
-        <li><span class="glyphicon glyphicon-user"></span> <a href="{% url 'post_mypage' post.account %}">{{ user.username }}</a></li>
-        <br><br><br><br>{{ post.account }}<br><img src="{{ post.photo.url  }}" width="400" height="300"/> <br>  {{ post.text}}
+    <br><br><br><br>{{ post.account }}
+        {% if user == post.account %}
+        <details>
+            <summary>...</summary>
+            <p><a href="{% url 'post_update' post.id %}">게시물 수정</a><br>
+               <a href="{% url 'post_delete' post.id %}">게시물 삭제</a><br>
+                게시물 공유<br>
+                링크 복사 <br>
+            </p>
+        </details>
+        {% else %}
+        <details>
+            <summary>...</summary>
+            <p>
+               게시물 공유<br>
+               링크 복사 <br>
+            </p>
+        </details>
+        {% endif %}
+<br>
+    <img src="{{ post.photo.url  }}" width="400" height="300"/> <br>  {{ post.text}}<br>
+        {% for comments in post.comment_set.all %}
+            <span class="comment-account">{{ comments.account }} - </span>
+            <span class="comment-content">{{ comments.content }}
+            {% if user == comments.account %}
+            <a href="{% url 'comment_delete' comments.id %}">x</a>
+            {% endif %}
+            </span><br>
+        {% endfor %}
+    <form action="{% url 'comment' post.id %}" method="POST" class="comment-form">
+				{% csrf_token %}
+				<input type="text" name="content" placeholder="댓글 달기...">
+    </form>
     {% endfor %}
     {% else %}
         <li><a href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
