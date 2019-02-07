@@ -15,7 +15,7 @@
 
 		{% if user.is_active %}
 		<div align="right">
-			<li><a href="{% url 'mypage' user.username %}">{{user.username}}</li>
+			<li><a href="{% url 'mypage' user.username %}">{{user.username}}</a></li>
 		</div>
 		<div align="right">
         	<li><a href="/accounts/logout">로그아웃</a></li>
@@ -28,6 +28,32 @@
 			{{ posts.account }} <br>
 			<img src = "{{ posts.photo.url }}"  width="400" height="300"/> <br>
         	{{ posts.text }} <br> <br> <br> <br>
+			{% for comments in posts.comment_set.all %}
+				{{ comments.account }}
+				{{ comments.content }}
+				{% if user == comments.account %}
+					<a href="{% url 'comment_delete' comments.id %}"> x </a>
+				{% endif %} <br>
+			{% endfor %}
+			<form action="{% url 'comment_create' posts.id %}" method="POST" class="comment-form">
+				{% csrf_token %}
+				<input type="text" name="content" placeholder="댓글 달기...">
+			</form>
+			{% if user == posts.account %}
+		<details>
+			<summary> ... </summary>
+			<p> <a href="{% url 'post_update' posts.id %}"> 수정 </a> <br>
+				링크 복사 <br>
+				공유 <br>
+				<a href="{% url 'post_delete' posts.id %}"> 삭제 </a> </p>
+		</details>
+			{% else %}
+		<details>
+			<summary> ... </summary>
+				링크 복사 <br>
+				공유 <br>
+		</details>
+			{% endif %}
     	{% endfor %}
 		{% else %}
 		<div align="right">
