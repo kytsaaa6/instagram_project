@@ -27,7 +27,15 @@
     	{% for posts in data %}
 			{{ posts.account }} <br>
 			<img src = "{{ posts.photo.url }}"  width="400" height="300"/> <br>
-        	{{ posts.text }} <br> <br> <br> <br>
+        	{{ posts.text }} <br>
+			<a href="{% url 'post_like' posts.id %}"> <span class="glyphicon
+					{% if user in posts.post_like.all %}
+						glyphicon-heart
+					{% else %}
+						glyphicon-heart-empty
+					{% endif %}"
+					aria-hidden="true"></span> </a> {{posts.post_like.count}} <br> <br> <br> <br>
+
 			{% for comments in posts.comment_set.all %}
 				{{ comments.account }}
 				{{ comments.content }}

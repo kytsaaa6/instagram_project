@@ -59,6 +59,15 @@ def delete(request, pk):
 
     return redirect('post')  # 첫페이지로 이동하기
 
- #   return render(request, 'posts/base.html', {'post': post})
+
+def post_like(request, pk):
+    user = request.user
+    post = Post.objects.get(pk=pk)
+    if post.post_like.filter(id=user.id).exists():
+        post.post_like.remove(user)
+    else:
+        post.post_like.add(user)
+
+    return redirect('post')
 
 # Create your views here.
