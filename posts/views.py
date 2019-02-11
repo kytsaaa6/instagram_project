@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from accounts.models import Account
+from accounts.models import Account, Follow
 from comments.models import Comment
 from .models import Post
 from .forms import PostForm
@@ -15,15 +15,39 @@ def post(request):
     }
     return render(request, 'posts/base.html', context)
 
-def mypage(request, username):
-    if request.method == 'GET':
-        data = Post.objects.all()
-        data = data.filter(account=request.user)
+def mypage(request, account):
+    member = Account.objects.get(username=account)
+    try:
+        data = Follow.objects.get(follow=member, follower=request.user)
         context = {
-            'data':data,
+            'data': member.post_set.all,
+            'member': member,
+            'account': data
+        }
+    except:
+        context = {
+            'data': member.post_set.all,
+            'member': member,
         }
     return render(request, 'posts/page.html', context)
 
+"""
+    member = get_object_or_404(Account, username=account)
+    if Follow.objects.filter(follow=member, follower=request.user).exists():
+        follow = Follow.objects.get(follow=member, follower=request.user)
+        context = {
+            'data':member.post_set.all,
+            'member':member,
+            'follow':follow,
+        }
+    else:
+        context = {
+            'data':member.post_set.all,
+            'member':member,
+            'follow':follow,
+    }
+    return render(request, 'posts/page.html', context)
+"""
 def create(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)  # NOTE: 인자 순서주의 POST, FILES
