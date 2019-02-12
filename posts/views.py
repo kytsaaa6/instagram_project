@@ -5,27 +5,32 @@ from posts.forms import PostForm
 
 
 def post(request):
-    follow = Account.objects.get(username=request.user)
-    if follow.followers.all().exists():
-        follow_list = follow.followers.values_list('follow_id', flat=True)
-        follower_list = follow.followers.values('follower_id')
-        follow_post_list = follow_list.union(follower_list, all=False)
-        data = Post.objects.filter(account_id__in=follow_post_list)
-    else:
-        data = Post.objects.all()
-
-    likes = list()
-
-    for posts in data:
-        if posts.like_set.filter(account=request.user).exists():
-            likes.append(True)
+    try:
+        follow = Account.objects.get(username=request.user)
+        if follow.followers.all().exists():
+            follow_list = follow.followers.values_list('follow_id', flat=True)
+            follower_list = follow.followers.values('follower_id')
+            follow_post_list = follow_list.union(follower_list, all=False)
+            data = Post.objects.filter(account_id__in=follow_post_list)
         else:
-            likes.append(False)
+            data = Post.objects.all()
+    except:
+        data = Post.objects.all()
+        context = {
+            'data': data,
+        }
 
-    context = {
-        'data': data,
-        'likes': likes
-    }
+    if request.user.is_authenticated:
+        likes = list()
+        for posts in data:
+            if posts.like_set.filter(account=request.user).exists():
+                likes.append(True)
+            else:
+                likes.append(False)
+        context = {
+            'data': data,
+            'likes': likes
+        }
     return render(request, 'posts/post.html', context)
 
 
@@ -104,3 +109,20 @@ def post_like(request, post_id):
 
     return redirect('post')
 
+
+def explore(request):
+    post = Post.objects.order_by("?")
+    like = Post.objects.all()
+    likes = list()
+
+    for posts_like in like:
+        if posts_like.like_set.filter(account=request.user).exists():
+            likes.append(True)
+        else:
+            likes.append(False)
+
+    context = {
+        'data': post,
+        'likes': likes
+    }
+    return render(request, 'posts/post_explore.html', context )
