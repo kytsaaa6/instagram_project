@@ -7,13 +7,33 @@ from .forms import PostForm
 
 
 def post(request):
-    data = Post.objects.all()
-#    comment = Comment.objects.all()
-    context = {
-        'data':data,
-#        'comment':comment,
-    }
+    try:
+        follow = Account.objects.get(username=request.user)
+        if follow.follower.all().exists():
+            follow_list = follow.follower.values_list('follow_id', flat=True)
+            follower_list = follow.follower.values('follower_id')
+            follow_post_list = follow_list.union(follower_list, all=False)
+            data = Post.objects.filter(account_id__in=follow_post_list)
+        else:
+            data = Post.objects.all()
+        context = {
+            'data': data,
+        }
+    except:
+        data = Post.objects.all()
+        context = {
+            'data': data,
+        }
     return render(request, 'posts/base.html', context)
+
+def explore(request):
+    post = Post.objects.order_by("?")
+
+    context = {
+        'post':post
+    }
+
+    return render(request, 'posts/explore.html', context)
 
 def mypage(request, account):
     member = Account.objects.get(username=account)

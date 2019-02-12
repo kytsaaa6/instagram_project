@@ -23,7 +23,9 @@
 		<div align="right">
         	<li><a href="/posts/create/go">게시물 등록</a></li>
     	</div>
-
+		<div align="right">
+        	<li><a href="/explore">둘러보기</a></li>
+    	</div>
     	{% for posts in data %}
 		<a href="{% url 'mypage' posts.account %}"> {{ posts.account }}</a> <br>
 			{% if posts.photo %}
