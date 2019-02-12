@@ -12,9 +12,9 @@ def comment(request, post_id):
         content = request.POST.get('content')
 
         # 'content'키가 없었거나 내용이 입력되지 않았을 경우
-        if not content:
+#        if not content:
             # 400(BadRequest)로 응답을 전송
-            return HttpResponse('댓글 내용을 입력하세요', status=400)
+#            return HttpResponse('댓글 내용을 입력하세요', status=400)
 
         # 내용이 전달 된 경우, Comment객체를 생성 및 DB에 저장
         Comment.objects.create(

@@ -10,9 +10,21 @@
         <li><span class="glyphicon glyphicon-user"></span><a href="{% url 'post_mypage' user.username %}">{{ user.username }} </a></li>
         <li><a href="/accounts/logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
         <li><a href="/posts/{{ user.username }}/create">Post 등록</a></li>
+        <li>팔로우 - {{ member.follower_count }}명</li>
+        <li>팔로워 - {{ member.follow_count }}명</li>
+        {% if member.username != user.username %}
+            {% if follow.follow == member %}
+            <li><a href="{% url 'follow' member.username %}">⭐</a></li>
+            {% else %}
+            <li><a href="{% url 'follow' member.username %}">팔로우</a></li>
+            {% endif %}
+        {% endif %}
     {% for post in data %}
-        <br><br><br><br><br><a href="{% url 'post_mypage' post.account %}">{{ post.account }}</a>
-        <br><img src="{{ post.photo.url  }}" width="400" height="300"/> <br>  {{ post.text}}
+        <br><br><br><br><br><a href="{% url 'post_mypage' post.account %}">{{ post.account }}</a><br>
+        {% if post.photo %}
+        <img src="{{ post.photo.url  }}" width="400" height="300"/> <br>
+        {% endif %}
+        {{ post.text}}
     {% endfor %}
     {% else %}
         <li><a href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
