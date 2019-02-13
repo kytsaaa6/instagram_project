@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from posts.models import Post
+from posts.models import Post, Tag
 from accounts.models import Account, Follow
 from posts.forms import PostForm
-
 
 def post(request):
     try:
@@ -58,6 +57,7 @@ def create(request, account):
             posts = form.save(commit=False)  # 중복 DB save를 방지
             posts.account = request.user
             posts.save()
+            posts.tag_save()
             return redirect('post')
     else:
         form = PostForm()
@@ -125,4 +125,28 @@ def explore(request):
         'data': post,
         'likes': likes
     }
-    return render(request, 'posts/post_explore.html', context )
+    return render(request, 'posts/post_explore.html', context)
+
+
+def tag_list(request, tag):
+    tag_list = Tag.objects.get(name=tag)
+    posts = tag_list.post_set.all()
+    context = {
+        'data': posts,
+        'tag': tag_list
+    }
+
+    return render(request, 'posts/post_tag_list.html', context)
+
+
+def search(request):
+    search = request.POST.get('search')
+    context = {}
+    searchs = Post.objects.filter(account__username__contains=search)|Post.objects.filter(text__contains='#'+search)
+    context.update(
+        {
+           'data': searchs,
+        }
+    )
+    return render(request, 'posts/search.html', context)
+
