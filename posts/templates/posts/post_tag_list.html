@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>#{{tag.name}}</title>
+</head>
+<body>
+    <li><a href="/posts"> 홈 </a></li>
+    #{{tag.name}} <br><br><br>
+    {% for posts in post %}
+    {{ posts.account }} <br>
+    <img src = "{{ posts.photo.url }}"  width="400" height="300"/> <br>
+    {% endfor %}
+</body>
+</html>

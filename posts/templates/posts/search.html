@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    	{% for posts in data %}
+			{{ posts.account }}<br>
+			{% if posts.photo %}
+			<img src = "{{ posts.photo.url }}"  width="400" height="300"/> <br>
+			{% endif %}
+        	{{ posts.text }} <br> <br> <br> <br>
+		{% endfor %}
+
+        {% for post in tag %}
+			{{ post.account }}<br>
+			{% if post.photo %}
+			<img src = "{{ post.photo.url }}"  width="400" height="300"/> <br>
+			{% endif %}
+        	{{ post.text }} <br> <br> <br> <br>
+		{% endfor %}
+</body>
+</html>

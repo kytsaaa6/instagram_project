@@ -1,4 +1,6 @@
 {% load static %}
+{% load post_extras %}
+
 
 <html>
 	<head>
@@ -26,12 +28,18 @@
 		<div align="right">
         	<li><a href="/explore">둘러보기</a></li>
     	</div>
+
+		<form action="/posts/search/go/" method="get">
+		  <input type="text" name="q" value="{{ q }}">
+		  <input type="submit" value="검색">
+		</form>
+
     	{% for posts in data %}
 		<a href="{% url 'mypage' posts.account %}"> {{ posts.account }}</a> <br>
 			{% if posts.photo %}
 			<img src = "{{ posts.photo.url }}"  width="400" height="300"/> <br>
 			{% endif %}
-        	{{ posts.text }} <br>
+        	{{ posts|add_link|safe }} <br>
 			<a href="{% url 'post_like' posts.id %}"> <span class="glyphicon
 					{% if user in posts.post_like.all %}
 						glyphicon-heart

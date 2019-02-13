@@ -11,6 +11,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('comment/', include('comments.urls')),
     path('explore/', views.explore, name='explore'),
+    path('explore/tags/<str:tag>/', views.tag_list, name='tag_list'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

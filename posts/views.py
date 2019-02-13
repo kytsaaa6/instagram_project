@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from accounts.models import Account, Follow
 from comments.models import Comment
-from .models import Post
+from .models import Post, Tag
 from .forms import PostForm
 
 
@@ -75,6 +75,7 @@ def create(request):
             post = form.save(commit=False)  # 중복 DB save를 방지
             post.account = request.user
             post.save()
+            post.tag_save()
             return redirect('post')
     else:
         form = PostForm()
@@ -114,4 +115,31 @@ def post_like(request, pk):
 
     return redirect('post')
 
+
+def tag_list(request, tag):
+    tag = Tag.objects.get(name=tag)
+    post = tag.post_set.all()
+
+    context = {
+        'tag':tag,
+        'post':post,
+    }
+
+    return render(request, 'posts/post_tag_list.html', context)
+
+def search(request):
+    qs = Post.objects.all()
+    q = request.GET.get('q', '') # GET request의 인자중에 q 값이 있으면 가져오고, 없으면 빈 문자열 넣기
+    if q: # q가 있으면
+        data = qs.filter(account__username__contains=q)|qs.filter(text__contains='#'+q) # 제목에 q가 포함되어 있는 레코드만 필터링
+
+        context = {
+            'data':data,
+        }
+    # else:
+    #     tag = qs.filter(text__contains=q)
+    #     context = {
+    #         'tag':tag,
+        # }
+    return render(request, 'posts/search.html', context)
 # Create your views here.
