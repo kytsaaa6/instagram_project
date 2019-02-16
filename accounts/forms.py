@@ -46,8 +46,7 @@ class AccountCreationForm(UserCreationForm):
         widget=forms.PasswordInput,
     )
 
-class AccountLoginForm(AuthenticationForm):
-    username = UsernameField(widget=forms.TextInput(attrs={'autofocus': True}))
+"""class AccountLoginForm(AuthenticationForm):
     phone = forms.CharField(
         label=("휴대폰 번호"),
         strip=False,
@@ -58,19 +57,6 @@ class AccountLoginForm(AuthenticationForm):
         strip=False,
         widget=forms.EmailInput,
     )
-    password = forms.CharField(
-        label=("비밀번호"),
-        strip=False,
-        widget=forms.PasswordInput,
-    )
-
-    error_messages = {
-        'invalid_login': (
-            "Please enter a correct %(username)s and password. Note that both "
-            "fields may be case-sensitive."
-        ),
-        'inactive': ("This account is inactive."),
-    }
 
     def clean(self):
         username = self.cleaned_data.get('username')
@@ -86,3 +72,4 @@ class AccountLoginForm(AuthenticationForm):
                 self.confirm_login_allowed(self.user_cache)
 
         return self.cleaned_data
+        """

@@ -1,10 +1,10 @@
 {% load static %}
 {% load post_extras %}
-
+{% load socialaccount %}
 
 <html>
 	<head>
-		<title>Django Girls blog</title>
+		<title>insta min</title>
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="{% static 'css/base.css' %}">
@@ -20,7 +20,7 @@
 			<li><a href="{% url 'mypage' user.username %}">{{user.username}}</a></li>
 		</div>
 		<div align="right">
-        	<li><a href="/accounts/logout">로그아웃</a></li>
+        	<li><a href="/account/logout">로그아웃</a></li>
     	</div>
 		<div align="right">
         	<li><a href="/posts/create/go">게시물 등록</a></li>
@@ -78,29 +78,19 @@
 		{% else %}
 		<div align="right">
     	    <right>
-        	<li><a href="/accounts/login">로그인</a></li>
+        	<li><a href="/account/login">로그인</a></li>
         	</right>
     	</div>
 
     	<div align="right">
-        	<li><a href="/accounts/signup">회원가입</a></li>
+        	<li><a href="/account/signup">회원가입</a></li>
     	</div>
+		<div align="right">
+			<li><a href="{% provider_login_url 'facebook' method='oauth2' %}">facebook Login</a></li>
+		</div>
 		{% endif %}
 
-
-		<div class="content container">
-    	<div class="row">
-        <div class="col-md-8">
-			<div class="post">
-				<div class="date">
-					<p>instagram</p>
-				</div>
-                    <h1><a href="">instagram</a></h1>
-                    <p>instagram</p>
-                </div>
-        	</div>
-    	</div>
-		</div>
+	
 	</body>
 
 </html>

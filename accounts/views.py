@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 #from django.core.urlresolvers import reverse
-from .forms import AccountCreationForm, AccountLoginForm
+from .forms import AccountCreationForm
 from django.contrib.auth import views as auth_views
 from .models import Account, Follow
 
@@ -22,13 +22,13 @@ def signup(request):
 
     return render(request, "registration/signup.html", {"userform":userform,})
 
-
+'''
 class Login(auth_views.LoginView):
     """
     Display the login form and handle the login action.
     """
     form_class = AccountLoginForm
-
+'''
 
 def follow(request, account):
     account = get_object_or_404(Account, username=account)
