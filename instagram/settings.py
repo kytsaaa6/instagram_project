@@ -40,8 +40,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'posts',
     'accounts',
-    'comments'
+    'comments',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
 ]
+
+SITE_ID = 3
+
+AUTHENTICATION_BACKENDS = (
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,5 +140,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 LOGIN_REDIRECT_URL = '/posts'
+ACCOUNT_AUTHENTICATED_LOGOUT_REDIRECTS = True
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = '/posts'
+ACCOUNT_EMAIL_VERIFICATION = 'none'

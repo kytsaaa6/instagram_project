@@ -4,7 +4,7 @@
     {% if user.is_active %}
         <li><a href="/posts"><span class="glyphicon glyphicon-user"></span>Home</a></li>
         <li><span class="glyphicon glyphicon-user"></span><a href="{% url 'post_mypage' user.username %}">{{ user.username }}</a></li>
-        <li><a href="/accounts/logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+        <li><a href="/account/logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
         <li><a href="/posts/{{ user.username }}/create">Post 등록</a></li>
     {% for post in data %}
     <br><br><br><br><a href="{% url 'post_mypage' post.account %}">{{ post.account }}</a>
@@ -27,34 +27,13 @@
         </details>
         {% endif %}
     <br>
-    {% if post.photo %}
-    <img src="{{ post.photo.url  }}" width="400" height="300"/> <br>
-    {% endif %}
-    <!--{{ post.text}}<br>-->
-        <!--<a href="{% url 'post_like' post.id %}">좋아요-->
-            <!--{% if likes|index:forloop.counter0 %}-->
-                    <!--❤️-->
-            <!--{% else %}-->
-                    <!--♡-->
-            <!--{% endif %}-->
-        <!--</a> {{ post.like_count }}-->
-    <!--<br><br>-->
-            <!--{% for comments in post.comment_set.all %}-->
-                <!--<span class="comment-account">{{ comments.account }} - </span>-->
-                <!--<span class="comment-content">{{ comments.content }}-->
-                <!--{% if user == comments.account %}-->
-                <!--<a href="{% url 'comment_delete' comments.id %}">x</a>-->
-                <!--{% endif %}-->
-                <!--</span><br>-->
-            <!--{% endfor %}-->
-    <!--<form action="{% url 'comment' post.id %}" method="POST" class="comment-form">-->
-				<!--{% csrf_token %}-->
-				<!--<input type="text" name="content" placeholder="댓글 달기">-->
-    <!--</form>-->
+        {% if post.photo %}
+        <img src="{{ post.photo.url  }}" width="400" height="300"/> <br>
+        {% endif %}
     {% endfor %}
     {% else %}
-        <li><a href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/accounts/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="/account/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="/account/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     {% endif %}
 </body>
 </html>

@@ -10,12 +10,13 @@ def signup(request):
         if userform.is_valid():
             userform.save()
 
-            return redirect("/accounts/login")
+            return redirect("/account/login")
 
     elif request.method == "GET":
         userform = AccountCreationForm()
 
     return render(request, "registration/signup.html", {"userform":userform})
+
 
 class Login(auth_views.LoginView):
     form_class = AccountLoginForm

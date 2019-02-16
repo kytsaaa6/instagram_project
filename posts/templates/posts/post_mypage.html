@@ -8,7 +8,7 @@
     {% if user.is_active %}
         <li><a href="/posts"><span class="glyphicon glyphicon-user"></span>Home</a></li>
         <li><span class="glyphicon glyphicon-user"></span><a href="{% url 'post_mypage' user.username %}">{{ user.username }} </a></li>
-        <li><a href="/accounts/logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+        <li><a href="/account/logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
         <li><a href="/posts/{{ user.username }}/create">Post 등록</a></li>
         <li>팔로우 - {{ member.follower_count }}명</li>
         <li>팔로워 - {{ member.follow_count }}명</li>
@@ -27,8 +27,8 @@
         {{ post.text}}
     {% endfor %}
     {% else %}
-        <li><a href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/accounts/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="/account/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="/account/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     {% endif %}
 </body>
 </html>

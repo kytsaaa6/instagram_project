@@ -1,18 +1,23 @@
+{% load socialaccount %}
 {% load index %}
 {% load post_tag %}
+{% load static %}
 <html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+</head>
 <body>
     {% if user.is_active %}
         <li><a href="/posts"><span class="glyphicon glyphicon-user"></span>Home</a></li>
         <li><span class="glyphicon glyphicon-user"></span><a href="{% url 'post_mypage' user.username %}">{{ user.username }}</a></li>
-        <li><a href="/accounts/logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+        <li><a href="/account/logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
         <li><a href="/posts/{{ user.username }}/create">Post 등록</a></li>
         <li><a href="{% url 'explore' %}">둘러보기</a></li>
     <form action="{% url 'search' %}" method="POST">
         {% csrf_token %}
         <div class="form-inline text-right">
             <div class="form-group">
-                <input type="text" class="form-control" name="search" value="{{ search }}" placeholder="유저검색">
+                <input type="text" class="form-control" name="search" value="{{ search }}">
                 <button class="btn btn-default" type="submit">
                     <i class="glyphicon glyphicon-search">검색</i>
                 </button>
@@ -65,8 +70,9 @@
     </form>
     {% endfor %}
     {% else %}
-        <li><a href="/accounts/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/accounts/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="/account/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="/account/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="{% provider_login_url 'facebook' method='oauth2' %}">facebook Login</a></li>
     {% endif %}
 </body>
 </html>
