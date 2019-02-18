@@ -1,11 +1,14 @@
-<!DOCTYPE html>
+{% extends "posts/layout.html" %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+	{% block title %}
+    <title> {{user.name}}님의 마이페이지</title>
+	{% endblock %}
 </head>
 <body>
-	<li><a href="/posts"> 홈 </a></li>
+	{% block content %}
 	{% if user != member %}
 		{% if account %}
 			<a href="{% url 'follow' member.username %}"> 언팔로우 </a> <br>
@@ -22,6 +25,7 @@
 			{% endif %}
         	{{ posts.text }} <br> <br> <br> <br>
 		{% endfor %}
+	{% endblock %}
 
 </body>
 </html>
