@@ -3,38 +3,9 @@
 {% load socialaccount %}
 {% load staticfiles %}
 
-<!--
-	<head>
-		<title>insta min</title>
-	</head>
-
-	<body>
-		<h1><a href="/">Insta min</a></h1>
-
-		{% if user.is_active %}
-		<div align="right">
-			<li><a href="{% url 'mypage' user.username %}">{{user.username}}</a></li>
-		</div>
-		<div align="right">
-        	<li><a href="/account/logout">로그아웃</a></li>
-    	</div>
-		<div align="right">
-        	<li><a href="/posts/create/go">게시물 등록</a></li>
-    	</div>
-		<div align="right">
-        	<li><a href="/explore">둘러보기</a></li>
-    	</div>
-
-		<form action="/posts/search/go/" method="get">
-		  <input type="text" name="q" value="{{ q }}">
-		  <input type="submit" value="검색">
-		</form>
-!-->
 	{% block content %}
 	<br><br><br><br><br>
-	<div align="center">
-	<img src="{% static 'main.png' %}">
-	</div>
+
 	{% if request.user.is_authenticated %}
           {% for posts in data %}
         <div id="post">
@@ -88,22 +59,26 @@
 
         </div>
 	{% endfor %}
+
+	{% else %}
+	<div style="width:100%; height:100%; float:left; margin-left:300px; margin-top:50px;">
+		<img src="{% static 'main.png' %}" width="30%" height="70%"/>
+		<div style="width:50%; height:50%; float:right; margin-right:200px; margin-top:100px;">
+            <a href="{% provider_login_url 'facebook' method='oauth2' %}">
+            <img src="{% static 'facebook.png' %}" width="35%" height="12%"/>
+            </a>
+			<br> <br>
+            <div style="margin-left:50px;">
+                <p> ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ 또는 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</p>
+            </div>
+            <br>
+			<form id="signup" method="post" action="{% url 'signup' %}">
+        	{% csrf_token %}
+        	{{ userform.as_p }}
+        	<input type="submit" value="회원가입" />
+    	</form>
+		</div>
+	</div>
 	{% endif %}
 	{% endblock %}
-<!--
-		{% else %}
-		<div align="right">
-    	    <right>
-        	<li><a href="/account/login">로그인</a></li>
-        	</right>
-    	</div>
-
-    	<div align="right">
-        	<li><a href="/account/signup">회원가입</a></li>
-    	</div>
-		<div align="right">
-			<li><a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Login</a></li>
-		</div>
-		{% endif %}
-!-->
 

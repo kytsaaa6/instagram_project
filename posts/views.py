@@ -4,7 +4,7 @@ from accounts.models import Account, Follow
 from comments.models import Comment
 from .models import Post, Tag
 from .forms import PostForm
-
+from accounts.forms import AccountCreationForm
 
 def post(request):
     try:
@@ -21,8 +21,10 @@ def post(request):
         }
     except:
         data = Post.objects.all()
+        userform = AccountCreationForm()
         context = {
             'data': data,
+            'userform':userform,
         }
     return render(request, 'posts/base.html', context)
 

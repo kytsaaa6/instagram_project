@@ -101,6 +101,13 @@
             {% block mypage %}
             {% endblock %}
           </ul>
+          <br>
+         <div align="center">
+          <form action="/posts/search/go/" method="get">
+		    <input type="text" name="q" value="{{ q }}">
+		    <input type="submit" value="검색">
+		  </form>
+         </div>
 
           {% else %}
            <ul class="nav navbar-nav navbar-right">
@@ -110,13 +117,6 @@
            </ul>
 		  {% endif %}
 
-            <br>
-         <div align="center">
-          <form action="/posts/search/go/" method="get">
-		    <input type="text" name="q" value="{{ q }}">
-		    <input type="submit" value="검색">
-		  </form>
-         </div>
         </div>
       </div>
     </nav>
