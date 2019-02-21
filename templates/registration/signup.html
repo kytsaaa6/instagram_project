@@ -1,13 +1,31 @@
 {% extends "layout.html" %}
+{% load socialaccount %}
 
 {% block content %}
 <br>
- <div id="main-container" align="center">
-    <img src="/static/photo/인스타그램.png" width="100%" height="100%">
-    <form id="signup" method="post" action="{% url 'signup' %}">
-        {% csrf_token %}
-        {{ userform.as_p }}
-        <input type="submit" value="join" />
-    </form>
- </div>
+<div id="main-container">
+        <div style="float: left; width: 50%;">
+            <img src="/static/photo/인스타그램.png" width="100%" height="100%">
+        </div>
+        <div style="float: right; width: 50%;">
+                <div style="margin-top: 175px;">
+                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">
+                        <img src="/static/photo/facebook.png" width="200" height="40">
+                    </a>
+                </div>
+                <div style="margin-left: 35px;">
+                    <br>
+                    ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ 또는 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+                    <br>
+                    <br>
+                </div>
+                <form id="signup" method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    {{ userform.as_p }}
+                    <div align="center">
+                    <input type="submit" value="회원가입"/>
+                    </div>
+                </form>
+       </div>
+</div>
 {% endblock %}

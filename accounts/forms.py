@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django import forms
 from accounts.models import Account
 from django.contrib.auth import authenticate
@@ -45,17 +45,15 @@ class AccountCreationForm(UserCreationForm):
 
 
 class AccountLoginForm(AuthenticationForm):
-    pass
-"""
-    phone = forms.CharField(
-        label=("핸드폰번호"),
-        strip=False,
-        widget=forms.NumberInput,
+    username = UsernameField(
+        label=("사용자 이름"),
+        widget=forms.TextInput(
+            attrs={'autofocus': True}
+        )
     )
 
-    email = forms.CharField(
-        label=("이메일"),
+    password = forms.CharField(
+        label=("비밀번호"),
         strip=False,
-        widget=forms.EmailInput,
+        widget=forms.PasswordInput,
     )
-"""

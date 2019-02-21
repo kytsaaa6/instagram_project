@@ -1,13 +1,34 @@
 {% extends "layout.html" %}
+{% load socialaccount %}
 
 {% block content %}
 <br>
- <div id="main-container" align="center">
-    <img src="/static/photo/인스타그램.png" width="100%" height="100%">
-    <form id="login" method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        {{ form.as_table }}
-        <input type="submit" value="login" />
-    </form>
+<div id="main-container">
+            <div style="float: left; width: 50%;">
+                <img src="/static/photo/인스타그램.png" width="100%" height="100%">
+            </div>
+            <div style="float: right; width: 50%; margin-top: 50px;">
+                <div style="margin-top: 150px;">
+                    <a href="{% provider_login_url 'facebook' method='oauth2' %}">
+                        <img src="/static/photo/facebook.png" width="200" height="40">
+                    </a>
+                </div>
+                <div style="margin-left: 35px;">
+                    <br>
+                    ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ 또는 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+                    <br>
+                    <br>
+                </div>
+                <div>
+                    <form id="login" method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        {{ form.as_table|linebreaksbr }}
+                       <br>
+                       <div align="center">
+                        <input type="submit" value="로그인"/>
+                       </div>
+                    </form>
+                </div>
+            </div>
  </div>
 {% endblock %}

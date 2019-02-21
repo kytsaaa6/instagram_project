@@ -2,8 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from posts.models import Post, Tag
 from accounts.models import Account, Follow
 from posts.forms import PostForm
+from accounts.forms import AccountCreationForm
+
 
 def post(request):
+    userform = AccountCreationForm()
+    if userform.is_valid():
+        userform.save()
     try:
         follow = Account.objects.get(username=request.user)
         if follow.followers.all().exists():
@@ -17,6 +22,7 @@ def post(request):
         data = Post.objects.all()
         context = {
             'data': data,
+            'userform': userform
         }
 
     if request.user.is_authenticated:
@@ -28,7 +34,8 @@ def post(request):
                 likes.append(False)
         context = {
             'data': data,
-            'likes': likes
+            'likes': likes,
+            'userform':userform
         }
     return render(request, 'posts/post.html', context)
 
