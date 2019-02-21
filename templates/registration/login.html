@@ -1,11 +1,13 @@
-<html>
-<body>
-    <!-- Login Form -->
+{% extends "layout.html" %}
+
+{% block content %}
+<br>
+ <div id="main-container" align="center">
+    <img src="/static/photo/인스타그램.png" width="100%" height="100%">
     <form id="login" method="post" action="{% url 'login' %}">
         {% csrf_token %}
         {{ form.as_table }}
         <input type="submit" value="login" />
     </form>
-
-</body>
-</html>
+ </div>
+{% endblock %}

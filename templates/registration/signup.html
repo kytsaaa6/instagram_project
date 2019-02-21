@@ -1,11 +1,13 @@
-<html>
-<body>
-    <!-- Sign Up Form -->
+{% extends "layout.html" %}
+
+{% block content %}
+<br>
+ <div id="main-container" align="center">
+    <img src="/static/photo/인스타그램.png" width="100%" height="100%">
     <form id="signup" method="post" action="{% url 'signup' %}">
         {% csrf_token %}
         {{ userform.as_p }}
         <input type="submit" value="join" />
     </form>
-
-</body>
-</html>
+ </div>
+{% endblock %}

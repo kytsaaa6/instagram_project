@@ -1,0 +1,106 @@
+{% load post_tag %}
+{% load socialaccount %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    {% block title %}
+    <title>InstaGram</title>
+    {% endblock %}
+    <!-- Bootstrap core CSS -->
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href="navbar-fixed-top.css" rel="stylesheet">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+ <style>
+ #post-container {
+        background-color: #ffffff;
+        margin: 50px 370px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        padding: 10px
+        width: 100%;
+        }
+ #post-username {
+        width: 100%;
+        margin-bottom: 0px auto;
+        float: left;
+        border: 1px solid #ddd;
+      }
+ #post-photo {
+        width: 100%;
+        margin-bottom: 0px auto;
+        border: 1px solid #ddd;
+      }
+ #post-text {
+        width: 100%;
+        margin-bottom: 0px auto;
+        float: left;
+        border: 1px solid #ddd;
+      }
+ #main-container {
+        background-color: #ffffff;
+        margin: 50px 370px;
+        border-radius: 4px;
+        padding: 10px
+        width: 100%;
+        }
+ #main-photo {
+        width: 100%;
+        margin-bottom: 0px auto;
+        border: 1px solid #ddd;
+      }
+</style>
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{% url 'posts_post' %}">InstaGram</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'posts_post' %}">Home</a></li>
+          </ul>
+            {% if user.is_active %}
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="{% url 'post_mypage' user.username %}">{{ user.username }}</a></li>
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+              <li><a href="{% url 'explore' %}">둘러보기</a></li>
+              {% block mypage %}
+              {% endblock %}
+          </ul>
+            {% else %}
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="{% url 'signup' %}">회원가입</a></li>
+              <li><a href="{% url 'login' %}">로그인</a></li>
+              <li><a href="{% provider_login_url 'facebook' method='oauth2' %}">페이스북 로그인</a></li>
+          </ul>
+            {% endif %}
+          <div align="center">
+            <form action="{% url 'search' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="search" value="{{ search }}">
+                <button class="btn btn-default" type="submit">검색</button>
+            </form>
+          </div>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
