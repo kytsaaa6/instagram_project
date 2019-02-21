@@ -1,18 +1,15 @@
-{% load static %}
+{% extends "posts/layout.html" %}
 {% load post_extras %}
 {% load socialaccount %}
+{% load staticfiles %}
 
-<html>
+<!--
 	<head>
 		<title>insta min</title>
-
 	</head>
 
 	<body>
-
-			<h1><a href="/">Insta min</a></h1>
-
-		</div>
+		<h1><a href="/">Insta min</a></h1>
 
 		{% if user.is_active %}
 		<div align="right">
@@ -32,21 +29,50 @@
 		  <input type="text" name="q" value="{{ q }}">
 		  <input type="submit" value="검색">
 		</form>
+!-->
+	{% block content %}
+	<br><br><br><br><br>
+	<div align="center">
+	<img src="{% static 'main.png' %}">
+	</div>
+	{% if request.user.is_authenticated %}
+          {% for posts in data %}
+        <div id="post">
+          <div id="username">
+		    <a href="{% url 'mypage' posts.account %}"> {{ posts.account }}</a>
 
-    	{% for posts in data %}
-		<a href="{% url 'mypage' posts.account %}"> {{ posts.account }}</a> <br>
-			{% if posts.photo %}
-			<img src = "{{ posts.photo.url }}"  width="400" height="300"/> <br>
+            {% if user == posts.account %}
+		    <details>
+			  <summary> ... </summary>
+			  <p> <a href="{% url 'post_update' posts.id %}"> 수정 </a> <br>
+				링크 복사 <br>
+				공유 <br>
+				<a href="{% url 'post_delete' posts.id %}"> 삭제 </a> </p>
+		    </details>
+			{% else %}
+		    <details>
+			  <summary> ... </summary>
+				링크 복사 <br>
+				공유 <br>
+		    </details>
 			{% endif %}
-        	{{ posts|add_link|safe }} <br>
+          </div>
+            <div id="photo">
+			{% if posts.photo %}
+			  <img src = "{{ posts.photo.url }}"  width="100%" height="500"/> <br>
+			{% endif %}
+            </div>
+            <div id="text">
+        	{{ posts|add_link|safe }}
+                <br>
+
 			<a href="{% url 'post_like' posts.id %}"> <span class="glyphicon
 					{% if user in posts.post_like.all %}
 						glyphicon-heart
 					{% else %}
 						glyphicon-heart-empty
 					{% endif %}"
-					aria-hidden="true"></span> </a> {{posts.post_like.count}} <br> <br> <br> <br>
-
+					aria-hidden="true"></span> </a> {{posts.post_like.count}} <br> <br>
 			{% for comments in posts.comment_set.all %}
 				{{ comments.account }}
 				{{ comments.content }}
@@ -58,22 +84,13 @@
 				{% csrf_token %}
 				<input type="text" name="content" placeholder="댓글 달기...">
 			</form>
-			{% if user == posts.account %}
-		<details>
-			<summary> ... </summary>
-			<p> <a href="{% url 'post_update' posts.id %}"> 수정 </a> <br>
-				링크 복사 <br>
-				공유 <br>
-				<a href="{% url 'post_delete' posts.id %}"> 삭제 </a> </p>
-		</details>
-			{% else %}
-		<details>
-			<summary> ... </summary>
-				링크 복사 <br>
-				공유 <br>
-		</details>
-			{% endif %}
-    	{% endfor %}
+            </div>
+
+        </div>
+	{% endfor %}
+	{% endif %}
+	{% endblock %}
+<!--
 		{% else %}
 		<div align="right">
     	    <right>
@@ -85,11 +102,8 @@
         	<li><a href="/account/signup">회원가입</a></li>
     	</div>
 		<div align="right">
-			<li><a href="{% provider_login_url 'facebook' method='oauth2' %}">facebook Login</a></li>
+			<li><a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Login</a></li>
 		</div>
 		{% endif %}
+!-->
 
-
-	</body>
-
-</html>

@@ -31,6 +31,48 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style>
+      #post {
+        background-color: #ffffff;
+        margin: 50px 450px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        padding: 10px
+        width: 100%;
+
+        }
+      #username {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        margin-bottom: 0px auto;
+        font-size: 17px;
+        width: 100%;
+      }
+      #photo {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 0px auto;
+        width: 100%;
+      }
+      #text {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        margin-bottom: 0px auto;
+        width: 100%;
+      }
+      #comment {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        margin-bottom: 0px auto;
+        width: 100%;
+      }
+
+    </style>
+
   </head>
 
   <body>
@@ -56,15 +98,19 @@
             <li><a href="{% url 'explore' %}">둘러보기</a></li>
             <li><a href="{% url 'mypage' user.username %}">{{user.username}}<br>{{user.name}}</a></li>
             <li><a href="{% url 'logout' %}">로그아웃</a></li>
+            {% block mypage %}
+            {% endblock %}
           </ul>
 
           {% else %}
            <ul class="nav navbar-nav navbar-right">
             <li><a href="{% url 'login' %}">로그인</a></li>
-            <li><a href="{% provider_login_url 'facebook' method='oauth2' %}">facebook Login</a></li>
+            <li><a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Login</a></li>
             <li><a href="{% url 'signup' %}">회원가입</a></li>
            </ul>
 		  {% endif %}
+
+            <br>
          <div align="center">
           <form action="/posts/search/go/" method="get">
 		    <input type="text" name="q" value="{{ q }}">
@@ -75,54 +121,6 @@
       </div>
     </nav>
     {% block content %}
-        <br> <br> <br> <br> <br>
-          {% for posts in data %}
-          <section>
-            <div>
-		    <a href="{% url 'mypage' posts.account %}"> {{ posts.account }}</a> <br>
-            </div>
-            <div>
-			{% if posts.photo %}
-			  <img src = "{{ posts.photo.url }}"  width="400" height="300"/> <br>
-			{% endif %}
-            </div>
-        	{{ posts|add_link|safe }} <br>
-			<a href="{% url 'post_like' posts.id %}"> <span class="glyphicon
-					{% if user in posts.post_like.all %}
-						glyphicon-heart
-					{% else %}
-						glyphicon-heart-empty
-					{% endif %}"
-					aria-hidden="true"></span> </a> {{posts.post_like.count}} <br> <br> <br> <br>
-          </section>
-			{% for comments in posts.comment_set.all %}
-				{{ comments.account }}
-				{{ comments.content }}
-				{% if user == comments.account %}
-					<a href="{% url 'comment_delete' comments.id %}"> x </a>
-				{% endif %} <br>
-			{% endfor %}
-			<form action="{% url 'comment_create' posts.id %}" method="POST" class="comment-form">
-				{% csrf_token %}
-				<input type="text" name="content" placeholder="댓글 달기...">
-			</form>
-			{% if user == posts.account %}
-
-		    <details>
-			  <summary> ... </summary>
-			  <p> <a href="{% url 'post_update' posts.id %}"> 수정 </a> <br>
-				링크 복사 <br>
-				공유 <br>
-				<a href="{% url 'post_delete' posts.id %}"> 삭제 </a> </p>
-		    </details>
-			{% else %}
-		    <details>
-			  <summary> ... </summary>
-				링크 복사 <br>
-				공유 <br>
-		    </details>
-			{% endif %}
-    	  {% endfor %}
     {% endblock %}
 
 

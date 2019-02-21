@@ -1,4 +1,6 @@
 {% extends "posts/layout.html" %}
+{% load post_extras %}
+{% load socialaccount %}
 
 <html lang="en">
 <head>
@@ -8,23 +10,75 @@
 	{% endblock %}
 </head>
 <body>
-	{% block content %}
-	{% if user != member %}
-		{% if account %}
-			<a href="{% url 'follow' member.username %}"> 언팔로우 </a> <br>
-		{% else %}
-			<a href="{% url 'follow' member.username %}"> 팔로우 </a> <br>
-		{% endif %}
-		팔로우 {{ member.follower.count }} 팔로워 {{ member.follow.count }}
-	{% endif %}
-		<br><br><br>
-    	{% for posts in data %}
-			{{ posts.account }}<br>
-			{% if posts.photo %}
-			<img src = "{{ posts.photo.url }}"  width="400" height="300"/> <br>
+	{% block mypage %}
+		{% if user != member %}
+			{% if account %}
+				<a href="{% url 'follow' member.username %}"> 언팔로우 </a> <br>
+			{% else %}
+				<a href="{% url 'follow' member.username %}"> 팔로우 </a> <br>
 			{% endif %}
-        	{{ posts.text }} <br> <br> <br> <br>
-		{% endfor %}
+		{% endif %}
+			팔로우 {{ member.follower.count }} 팔로워 {{ member.follow.count }}
+	{% endblock %}
+	{% block content %}
+
+
+
+		<br><br><br>
+	{% for posts in data %}
+        <div id="post">
+          <div id="username">
+		    <a href="{% url 'mypage' posts.account %}"> {{ posts.account }}</a>
+
+            {% if user == posts.account %}
+		    <details>
+			  <summary> ... </summary>
+			  <p> <a href="{% url 'post_update' posts.id %}"> 수정 </a> <br>
+				링크 복사 <br>
+				공유 <br>
+				<a href="{% url 'post_delete' posts.id %}"> 삭제 </a> </p>
+		    </details>
+			{% else %}
+		    <details>
+			  <summary> ... </summary>
+				링크 복사 <br>
+				공유 <br>
+		    </details>
+			{% endif %}
+          </div>
+            <div id="photo">
+			{% if posts.photo %}
+			  <img src = "{{ posts.photo.url }}"  width="100%" height="500"/> <br>
+			{% endif %}
+            </div>
+            <div id="text">
+        	{{ posts|add_link|safe }}
+                <br>
+
+			<a href="{% url 'post_like' posts.id %}"> <span class="glyphicon
+					{% if user in posts.post_like.all %}
+						glyphicon-heart
+					{% else %}
+						glyphicon-heart-empty
+					{% endif %}"
+					aria-hidden="true"></span> </a> {{posts.post_like.count}} <br> <br>
+			{% for comments in posts.comment_set.all %}
+				{{ comments.account }}
+				{{ comments.content }}
+				{% if user == comments.account %}
+					<a href="{% url 'comment_delete' comments.id %}"> x </a>
+				{% endif %} <br>
+			{% endfor %}
+			<form action="{% url 'comment_create' posts.id %}" method="POST" class="comment-form">
+				{% csrf_token %}
+				<input type="text" name="content" placeholder="댓글 달기...">
+			</form>
+            </div>
+
+        </div>
+	{% endfor %}
+
+
 	{% endblock %}
 
 </body>

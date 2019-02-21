@@ -24,7 +24,7 @@ def post(request):
         context = {
             'data': data,
         }
-    return render(request, 'posts/layout.html', context)
+    return render(request, 'posts/base.html', context)
 
 def explore(request):
     post = Post.objects.order_by("?")
