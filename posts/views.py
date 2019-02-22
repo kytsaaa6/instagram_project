@@ -87,9 +87,12 @@ def update(request, post_id):
 
 
 def delete(request, post_id):
-    post = Post.objects.get(pk=post_id)
-    post.delete()
-    data = Post.objects.all()
+    try:
+        post = Post.objects.get(pk=post_id)
+        post.delete()
+        data = Post.objects.all()
+    except:
+        data = Post.objects.all()
 
     likes = list()
 
@@ -153,6 +156,7 @@ def search(request):
     context.update(
         {
            'data': searchs,
+           'search':search
         }
     )
     return render(request, 'posts/search.html', context)

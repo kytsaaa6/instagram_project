@@ -1,13 +1,12 @@
-{% load index %}
-<html>
-<body>
-    {% if user.is_active %}
-        <li><a href="/posts"><span class="glyphicon glyphicon-user"></span>Home</a></li>
-        <li><span class="glyphicon glyphicon-user"></span><a href="{% url 'post_mypage' user.username %}">{{ user.username }}</a></li>
-        <li><a href="/account/logout"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
-        <li><a href="/posts/{{ user.username }}/create">Post 등록</a></li>
+{% extends "layout.html" %}
+
+{% block content %}
+<br><br><br><br>
+{% if request.user.is_authenticated %}
+<div id="explore-container">
     {% for post in data %}
-    <br><br><br><br><a href="{% url 'post_mypage' post.account %}">{{ post.account }}</a>
+    <div id="explore-post" align="left">
+        <a href="{% url 'post_mypage' post.account %}">{{ post.account }}</a><br>
         {% if user == post.account %}
         <details>
             <summary>...</summary>
@@ -26,14 +25,12 @@
             </p>
         </details>
         {% endif %}
-    <br>
         {% if post.photo %}
-        <img src="{{ post.photo.url  }}" width="400" height="300"/> <br>
+            <img src="{{ post.photo.url  }}" width="100%" height="300"/> <br>
         {% endif %}
+    </div>
     {% endfor %}
-    {% else %}
-        <li><a href="/account/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/account/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    {% endif %}
-</body>
-</html>
+
+</div>
+{% endif %}
+{% endblock %}
