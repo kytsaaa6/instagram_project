@@ -1,24 +1,18 @@
-<!DOCTYPE html>
+{% extends "posts/layout.html" %}
 {% load staticfiles %}
-<html lang="ko">
- <head>
-  <title>게시물 등록</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-  <link href="//fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/lotto.css' %}">
- </head>
+
  <body>
-  <div class="page-header">
+ {% block content %}
+
+  <div style="margin-top: 150px; margin-left: 500px;">
    <h1>게시물 등록</h1>
-  </div>
   <div class="container lotto">
    <form method="POST" enctype="multipart/form-data" class="post-form">
        {%csrf_token%}  <!-- 보안이슈로 입력 -->
        {{form.as_p}}
-     <button type="submit" class="save btn btn-default">Save</button>
+     <button type="submit" class="save btn btn-default">등록</button>
    </form>
   </div>
+  </div>
+ {% endblock %}
  </body>
-</html>

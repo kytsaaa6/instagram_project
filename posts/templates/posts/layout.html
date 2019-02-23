@@ -98,8 +98,6 @@
             <li><a href="{% url 'explore' %}">둘러보기</a></li>
             <li><a href="{% url 'mypage' user.username %}">{{user.username}}<br>{{user.name}}</a></li>
             <li><a href="{% url 'logout' %}">로그아웃</a></li>
-            {% block mypage %}
-            {% endblock %}
           </ul>
           <br>
          <div align="center">
@@ -120,6 +118,8 @@
         </div>
       </div>
     </nav>
+    {% block mypage %}
+    {% endblock %}
     {% block content %}
     {% endblock %}
 
