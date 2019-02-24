@@ -3,9 +3,14 @@
 
 <body>
 	{% block content %}
+		<br><br><br><br>
+		<div class="page-header" align="center">
+		<h1> 둘러보기 </h1>
+		</div>
+
     	{% for posts in post %}
-		<div class="image123" style="margin-top: 150px;">
-    		<div style="float:left;margin-right:10px; margin-bottom:10px;margin-left:30px;">
+		<div class="image123">
+    		<div style="float:left;margin-right:10px; margin-bottom:10px;margin-left:80px;">
 			  	<a href="{% url 'mypage' posts.account %}"> {{ posts.account }}</a> <br>
 			{% if posts.photo %}
 			  	<img src = "{{ posts.photo.url }}"  width="300" height="300"/> <br>
@@ -15,4 +20,3 @@
 		{% endfor %}
 	{% endblock %}
 </body>
-</html>

@@ -6,41 +6,60 @@
 <head>
     <meta charset="UTF-8">
 	{% block title %}
-    <title> {{user.name}}님의 마이페이지</title>
+    <title> {{member.name}}님의 마이페이지</title>
 	{% endblock %}
 </head>
 <body>
 	{% block mypage %}
-	<div style= "margin-top:150px; margin-left: 600px; font-size:50px">
-		{{member.username}} <br>
-		<div style= "font-size:20px">
+	<br><br><br><br><br>
+	<div class="page-header" align="center">
+		<h1>{{member.username}}</h1> <br>
+		<div style= "font-size:17px">
+			팔로우 -{{ member.follower.count }}명 팔로워 -{{ member.follow.count }}명
 		{% if user != member %}
 			{% if account %}
-				<a href="{% url 'follow' member.username %}"> 언팔로우 </a> <br>
+				<a href="{% url 'follow' member.username %}"> 🌟 </a>
 			{% else %}
-				<a href="{% url 'follow' member.username %}"> 팔로우 </a> <br>
+				<a href="{% url 'follow' member.username %}"> 팔로우 신청 </a>
 			{% endif %}
 		{% endif %}
-			팔로우 {{ member.follower.count }} 팔로워 {{ member.follow.count }}
 		</div>
 	</div>
 	{% endblock %}
 
 
 	{% block content %}
-	<div style= "margin-top:100px; margin-left: 700px; font-size:30px">
-		게시물
-		<a href="{% url 'post_create' %}"> + </a>
-	</div>
+	{% if user == member %}
+	<div align="center"> <h2> 게시물
+	<a href="{% url 'post_create' %}"> + </a> </h2> </div>
+	{% else %}
+	<div align="center"> <h2> 게시물 </h2> </div>
+	{% endif %}
+		<br><br>
 	{% for posts in data %}
-		<div class="image123">
-    		<div style="float:left;margin-right:10px; margin-bottom:10px;margin-left:30px;">
+	<div id="mypage-container">
+		<div id="mypage-post" align="left">
+			{% if user == posts.account %}
+		    <details>
+			  <summary> ... </summary>
+			  <p> <a href="{% url 'post_update' posts.id %}"> 수정 </a> <br>
+				링크 복사 <br>
+				공유 <br>
+				<a href="{% url 'post_delete' posts.id %}"> 삭제 </a> </p>
+		    </details>
+			{% else %}
+		    <details>
+			  <summary> ... </summary>
+				링크 복사 <br>
+				공유 <br>
+		    </details>
+			{% endif %}
 			{% if posts.photo %}
 			  <img src = "{{ posts.photo.url }}"  width="300" height="300"/> <br>
 			{% endif %}
-			</div>
-		</div>
 
+		</div>
+	</div>
 	{% endfor %}
 	{% endblock %}
 

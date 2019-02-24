@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Comment
 from posts.models import Post
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 
 
 def comment_create(request, pk):
@@ -26,14 +26,14 @@ def comment_create(request, pk):
         )
         # 정상적으로 Comment가 생성된 후
         # 'post'네임스페이스를 가진 url의 'post_list'이름에 해당하는 뷰로 이동
-        return redirect('post')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
 
 def comment_delete(request, pk):
-    comment = Comment.objects.get(pk=pk)
+    if request.method == 'GET':
+        comment = Comment.objects.get(pk=pk)
+        comment.delete()
 
-    comment.delete()
-
-    return redirect('post')  # 첫페이지로 이동하기
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))  # 첫페이지로 이동하기
 
 
 # Create your views here.

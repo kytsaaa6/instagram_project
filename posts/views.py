@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from accounts.models import Account, Follow
 from comments.models import Comment
 from .models import Post, Tag
 from .forms import PostForm
 from accounts.forms import AccountCreationForm
+
 
 def post(request):
     try:
@@ -28,6 +29,7 @@ def post(request):
         }
     return render(request, 'posts/base.html', context)
 
+
 def explore(request):
     post = Post.objects.order_by("?")
 
@@ -36,6 +38,7 @@ def explore(request):
     }
 
     return render(request, 'posts/explore.html', context)
+
 
 def mypage(request, account):
     member = Account.objects.get(username=account)
@@ -70,6 +73,8 @@ def mypage(request, account):
     }
     return render(request, 'posts/page.html', context)
 """
+
+
 def create(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)  # NOTE: 인자 순서주의 POST, FILES
@@ -78,13 +83,14 @@ def create(request):
             post.account = request.user
             post.save()
             post.tag_save()
-            return redirect('post')
+            return redirect('mypage', account=request.user)
     else:
         form = PostForm()
 
     return render(request, 'posts/post_create.html', {
         'form': form,
     })
+
 
 def update(request, pk):
     post = Post.objects.get(pk=pk)
@@ -94,17 +100,18 @@ def update(request, pk):
             post = form.save(commit=False)
             post.account = request.user
             post.save()
-            return redirect('post')
+            return redirect('mypage', account=request.user)
     else:
         form = PostForm(instance=post)
     return render(request, 'posts/post_update.html', {'form': form})
 
-def delete(request, pk):
-    post = Post.objects.get(pk=pk)
-        #if request.POST['password'] == article.password:
-    post.delete()
 
-    return redirect('post')  # 첫페이지로 이동하기
+def delete(request, pk):
+    if request.method == "GET":
+        post = Post.objects.get(pk=pk)
+        post.delete()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))  # 첫페이지로 이동하기
 
 
 def post_like(request, pk):
@@ -115,7 +122,7 @@ def post_like(request, pk):
     else:
         post.post_like.add(user)
 
-    return redirect('post')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
 
 
 def tag_list(request, tag):
@@ -128,6 +135,7 @@ def tag_list(request, tag):
     }
 
     return render(request, 'posts/post_tag_list.html', context)
+
 
 def search(request):
     qs = Post.objects.all()
