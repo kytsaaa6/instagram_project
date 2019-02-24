@@ -22,20 +22,19 @@
  <style>
  #post-container {
         background-color: #ffffff;
-        margin: 50px 370px;
+        margin: 50px 26%;
         border-radius: 4px;
+        border: 1px solid #ddd;
         width: 50%;
         }
  #post-username {
         width: 100%;
         margin-bottom: 0px auto;
         float: left;
-        border: 1px solid #ddd;
       }
  #post-photo {
         width: 100%;
         margin-bottom: 0px auto;
-        border: 1px solid #ddd;
       }
  #post-text {
         width: 100%;
@@ -47,6 +46,7 @@
         background-color: #ffffff;
         margin: 50px 370px;
         border-radius: 4px;
+        border: 1px solid #ddd;
         width: 50%;
         }
  #main-photo {
@@ -60,9 +60,21 @@
  #explore-post {
         width: 20%;
         margin-left: 56px;
-        border: 1px solid #ddd;
         float: left;
         margin-bottom: 20px;
+      }
+ #mypage-container {
+        width: 100%;
+      }
+ #mypage-post {
+        width: 20%;
+        margin-left: 56px;
+        float: left;
+        height: 400px;
+        margin-bottom: 20px;
+      }
+ #post-create {
+        margin-left: 40%;
       }
 </style>
   </head>
@@ -83,12 +95,11 @@
               <li><a href="{% url 'post_mypage' user.username %}">{{ user.username }}</a></li>
               <li><a href="{% url 'logout' %}">Logout</a></li>
               <li><a href="{% url 'explore' %}">둘러보기</a></li>
-              {% block mypage %}
-              {% endblock %}
+              <li><a href="{% url 'post_create' %}">Post 등록</a></li>
           </ul>
             <br>
-            <div align="center">
-            <form action="{% url 'search' %}" method="POST">
+          <div class="nav navbar-nav navbar-center" style="margin-left: 28%">
+            <form action="{% url 'search' %}" method="get">
                 {% csrf_token %}
                 <input type="text" name="search" value="{{ search }}">
                 <button class="btn btn-default" type="submit">검색</button>

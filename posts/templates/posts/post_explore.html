@@ -1,30 +1,17 @@
 {% extends "layout.html" %}
 
+{% block title %}
+<title>InstaGram 둘러보기</title>
+{% endblock %}
 {% block content %}
-<br><br><br><br>
+<div class="page-header" align="center" style="margin-top:90px;">
+   <h1>둘러보기</h1>
+  </div>
 {% if request.user.is_authenticated %}
 <div id="explore-container">
     {% for post in data %}
     <div id="explore-post" align="left">
         <a href="{% url 'post_mypage' post.account %}">{{ post.account }}</a><br>
-        {% if user == post.account %}
-        <details>
-            <summary>...</summary>
-            <p><a href="{% url 'post_update' post.id %}">게시물 수정</a><br>
-               <a href="{% url 'post_delete' post.id %}">게시물 삭제</a><br>
-                게시물 공유<br>
-                링크 복사 <br>
-            </p>
-        </details>
-        {% else %}
-        <details>
-            <summary>...</summary>
-            <p>
-               게시물 공유<br>
-               링크 복사 <br>
-            </p>
-        </details>
-        {% endif %}
         {% if post.photo %}
             <img src="{{ post.photo.url  }}" width="100%" height="300"/> <br>
         {% endif %}

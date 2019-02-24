@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from posts.models import Post
 from comments.models import Comment
 
@@ -25,10 +25,12 @@ def comment(request, post_id):
         )
         # 정상적으로 Comment가 생성된 후
         # 'post'네임스페이스를 가진 url의 'post_list'이름에 해당하는 뷰로 이동
-        return redirect('post')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 
 def comment_delete(request, comment_id):
-    comment = Comment.objects.get(pk=comment_id)
-    comment.delete()
+    if request.method == 'GET':
+        comment = Comment.objects.get(pk=comment_id)
+        comment.delete()
 
-    return redirect('post')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

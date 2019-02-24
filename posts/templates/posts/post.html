@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% load post_tag %}
-{% load index %}
 {% load socialaccount %}
 
 {% block content %}
@@ -36,12 +35,12 @@
     {% endif %}
             {{ post|add_link|safe }}<br>
             <a href="{% url 'post_like' post.id %}">좋아요
-                {% if likes|index:forloop.counter0 %}
+                {% if user in post.post_like.all %}
                         ❤️
                 {% else %}
                         ♡
                 {% endif %}
-            </a> {{ post.like_count }}
+            </a> {{ post.like_count}}개
     <br><br>
     {% for comments in post.comment_set.all %}
                     <span class="comment-account">{{ comments.account }} - </span>

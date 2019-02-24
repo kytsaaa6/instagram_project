@@ -3,30 +3,24 @@
 
     {% if user.is_active %}
         {% block title %}
-        <title>{{ user.username }}의 InstaGram</title>
-        {% endblock %}
-        {% block mypage %}
-              <li><a href="/posts/{{ user.username }}/create">Post 등록</a></li>
-        <ul>
-              <li>팔로우 - {{ member.follower_count }}명</li>
-              <li>팔로워 - {{ member.follow_count }}명</li>
-              <div align="rigth">
-                {% if member.username != user.username %}
-                    {% if follow.follow == member %}
-                    <li><a href="{% url 'follow' member.username %}">⭐</a></li>
-                    {% else %}
-                    <li><a href="{% url 'follow' member.username %}">팔로우</a></li>
-                    {% endif %}
-                {% endif %}
-              </div>
-        </ul>
+        <title>{{ member.username }}의 InstaGram</title>
         {% endblock %}
         {% block content %}
-        <br><br><br><br>
+<div class="page-header" align="center" style="margin-top:90px;">
+    <h1>{{ member.username }}</h1>
+                {% if member.username != user.username %}
+                    {% if follow.follow == member %}
+                    <a href="{% url 'follow' member.username %}"><h4>⭐</h4></a>
+                    {% else %}
+                    <a href="{% url 'follow' member.username %}"><h4>팔로우</h4></a>
+                    {% endif %}
+                {% endif %}
+              팔로우 - {{ member.follower_count }}명
+              팔로워 - {{ member.follow_count }}명
+</div>
 {% for post in data %}
-    <div id="post-container">
-        <div id="post-username" align="left">
-          <a href="{% url 'post_mypage' post.account %}">{{ post.account }}</a>
+    <div id="mypage-container">
+        <div id="mypage-post" align="left">
             {% if user == post.account %}
                 <details>
                     <summary>...</summary>
@@ -47,23 +41,9 @@
                 {% endif %}
         {% if post.photo %}
             <div id="post-photo">
-                <img src="{{ post.photo.url  }}" width="100%" height="75%"/> <br>
+                <img src="{{ post.photo.url  }}" width="100%" height="300"/> <br>
             </div>
         {% endif %}
-        {{ post.text}}
-    <br><br>
-        {% for comments in post.comment_set.all %}
-                    <span class="comment-account">{{ comments.account }} - </span>
-                    <span class="comment-content">{{ comments.content }}
-                    {% if user == comments.account %}
-                    <a href="{% url 'comment_delete' comments.id %}">x</a>
-                    {% endif %}
-                    </span><br>
-    {% endfor %}
-        <form action="{% url 'comment' post.id %}" method="POST" class="comment-form">
-                    {% csrf_token %}
-                    <input type="text" name="content" placeholder="댓글 달기">
-        </form>
         </div>
     </div>
     {% endfor %}

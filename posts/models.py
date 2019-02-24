@@ -8,10 +8,11 @@ class Post(models.Model):
     photo = models.ImageField(blank=True, null=True)
     text = models.CharField(max_length=150, help_text="최대 150자 입력 가능")
     tags = models.ManyToManyField('Tag', blank=True)
+    post_like = models.ManyToManyField(Account, related_name='post_like')
 
     @property
     def like_count(self):
-        return self.like_set.all().count()
+        return self.post_like.count()
 
     def tag_save(self):
         tags = re.findall(r'#(\w+)\b', self.text)
@@ -22,11 +23,6 @@ class Post(models.Model):
         for taged in tags:
             tag, tag_created = Tag.objects.get_or_create(name=taged)
             self.tags.add(tag)
-
-
-class Like(models.Model):
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
 
 class Tag(models.Model):

@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
 from posts.models import Post, Tag
 from accounts.models import Account, Follow
 from posts.forms import PostForm
@@ -18,25 +19,16 @@ def post(request):
             data = Post.objects.filter(account_id__in=follow_post_list)
         else:
             data = Post.objects.all()
+            context = {
+                'data': data,
+            }
     except:
         data = Post.objects.all()
         context = {
             'data': data,
-            'userform': userform
+            'userform': userform,
         }
 
-    if request.user.is_authenticated:
-        likes = list()
-        for posts in data:
-            if posts.like_set.filter(account=request.user).exists():
-                likes.append(True)
-            else:
-                likes.append(False)
-        context = {
-            'data': data,
-            'likes': likes,
-            'userform':userform
-        }
     return render(request, 'posts/post.html', context)
 
 
@@ -57,15 +49,15 @@ def my_page(request, account):
     return render(request, 'posts/post_mypage.html', context)
 
 
-def create(request, account):
+def create(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            posts = form.save(commit=False)  # 중복 DB save를 방지
+            posts = form.save(commit=False)
             posts.account = request.user
             posts.save()
             posts.tag_save()
-            return redirect('post')
+            return redirect('post_mypage', account=request.user)
     else:
         form = PostForm()
 
@@ -80,7 +72,7 @@ def update(request, post_id):
             post = form.save(commit=False)
             post.account = request.user
             post.save()
-            return redirect('post')
+            return redirect('post_mypage', account=request.user)
     else:
         form = PostForm(instance=post)
     return render(request, 'posts/post_update.html', {'form': form})
@@ -94,46 +86,28 @@ def delete(request, post_id):
     except:
         data = Post.objects.all()
 
-    likes = list()
-
-    for posts in data:
-        if posts.like_set.filter(account=request.user).exists():
-            likes.append(True)
-        else:
-            likes.append(False)
-
     context = {
         'data': data,
-        'likes': likes
     }
     return render(request, 'posts/post.html', context)
 
 
 def post_like(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    # 중간자 모델 Like 를 사용하여, 현재 post와 request.user에 해당하는 Like 인스턴스를 가져온다.
-    post_like, post_like_created = post.like_set.get_or_create(account=request.user)
+    user = request.user
+    post = Post.objects.get(pk=post_id)
+    if post.post_like.filter(id=user.id).exists():
+        post.post_like.remove(user)
+    else:
+        post.post_like.add(user)
 
-    if not post_like_created:
-        post_like.delete()
-
-    return redirect('post')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def explore(request):
     post = Post.objects.order_by("?")
-    like = Post.objects.all()
-    likes = list()
-
-    for posts_like in like:
-        if posts_like.like_set.filter(account=request.user).exists():
-            likes.append(True)
-        else:
-            likes.append(False)
 
     context = {
         'data': post,
-        'likes': likes
     }
     return render(request, 'posts/post_explore.html', context)
 
@@ -150,14 +124,13 @@ def tag_list(request, tag):
 
 
 def search(request):
-    search = request.POST.get('search')
-    context = {}
-    searchs = Post.objects.filter(account__username__contains=search)|Post.objects.filter(text__contains='#'+search)
-    context.update(
-        {
+    post_search = Post.objects.all()
+    search = request.GET.get('search', '')
+    searchs = post_search.filter(account__username__contains=search)|post_search.filter(text__contains='#'+search)
+
+    context= {
            'data': searchs,
-           'search':search
-        }
-    )
+           'search': search,
+    }
     return render(request, 'posts/search.html', context)
 
