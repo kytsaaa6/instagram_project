@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% load socialaccount %}
-
+{% block signup %}
+    <li><a href="{% url 'signup' %}">회원가입</a></li>
+{% endblock %}
 {% block content %}
 <br>
 <div id="main-container">

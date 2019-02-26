@@ -19,9 +19,10 @@ def post(request):
             data = Post.objects.filter(account_id__in=follow_post_list)
         else:
             data = Post.objects.all()
-            context = {
-                'data': data,
-            }
+
+        context = {
+            'data': data,
+        }
     except:
         data = Post.objects.all()
         context = {

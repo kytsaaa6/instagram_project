@@ -109,6 +109,8 @@
           <ul class="nav navbar-nav navbar-right">
               <li><a href="{% url 'login' %}">로그인</a></li>
               <li><a href="{% provider_login_url 'facebook' method='oauth2' %}">페이스북 로그인</a></li>
+              {% block signup %}
+              {% endblock %}
           </ul>
             {% endif %}
         </div><!--/.nav-collapse -->
