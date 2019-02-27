@@ -3,7 +3,7 @@
 {% load socialaccount %}
 
 {% block content %}
-<br><br><br>
+<br>
 {% if request.user.is_authenticated %}
     {% for post in data %}
 <div id="post-container">
@@ -59,8 +59,8 @@
         {% endfor %}
     {% else %}
     <div id="main-container">
-            <div style="float: left; width: 50%;">
-                <img src="/static/photo/인스타그램.png" width="100%" height="100%">
+            <div style="float: left; width: 40%; margin-top: 100px;">
+                <img src="/static/photo/인스타그램3.png" width="120%" height="60%">
             </div>
             <div style="float: right; width: 50%;">
                 <div style="margin-top: 175px;">

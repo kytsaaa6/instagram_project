@@ -105,7 +105,7 @@ def post_like(request, post_id):
 
 
 def explore(request):
-    post = Post.objects.order_by("?")
+    post = Post.objects.exclude(photo__isnull=True).exclude(photo__exact='').order_by("?") # 이미지가 없거나 빈문자열이 아닌것을 랜덤으로 쿼리셋
 
     context = {
         'data': post,
