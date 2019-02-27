@@ -25,7 +25,10 @@ SECRET_KEY = 'mcugy&dv#g+&ty*tc4s9_=@u05y4*-pk5ymmn996a^2(#@=i=6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost',
+                 '.ap-northeast-2.compute.amazonaws.com',
+    ]
+
 
 
 # Application definition
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.kakao',
 ]
 
 MIDDLEWARE = [
@@ -76,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-SITE_ID = 2
+SITE_ID = 3
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
@@ -97,13 +101,14 @@ WSGI_APPLICATION = 'instagram.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_test',
+        'NAME': 'instadb',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '',
     }
 }
+
 
 
 # DATABASES = {
@@ -158,8 +163,8 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_REDIRECT_URL = '/posts'
-LOGOUT_REDIRECT_URL = '/posts'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 #LOGIN_URL = '/account/login'
 
 AUTH_USER_MODEL = 'accounts.Account'
