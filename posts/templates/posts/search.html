@@ -9,7 +9,7 @@
 <div class="page-header" align="center" style="margin-top:90px;">
         <h1> {{ search }}️ 검색 결과 입니다.</h1>
 </div>
-{% for post in data %}
+{% for post in search_result %}
 <div id="post-container">
     <div id="post-username" align="left">
         <a href="{% url 'post_mypage' post.account %}">{{ post.account }}</a>

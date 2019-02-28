@@ -3,7 +3,7 @@
 
     {% if user.is_active %}
         {% block title %}
-        <title>{{ member.username }}의 InstaGram</title>
+        <title>{{ members.username }}의 InstaGram</title>
         {% endblock %}
         {% block content %}
 <div class="page-header" align="center" style="margin-top:90px;">
@@ -18,7 +18,7 @@
               팔로우 - {{ member.follower_count }}명
               팔로워 - {{ member.follow_count }}명
 </div>
-{% for post in data %}
+{% for post in members %}
     <div id="mypage-container">
         <div id="mypage-post" align="left">
             {% if user == post.account %}

@@ -27,8 +27,9 @@ def follow(request, account):
         account = get_object_or_404(Account, username=account)
         data = Follow.objects.get(follow=account, follower=request.user)
         data.delete()
-    except:
-        account = get_object_or_404(Account, username=account)  # 유저 모델에서 팔로우를 한 유저의 정보를 가져옴
+    except Follow.DoesNotExist:
+        account = get_object_or_404(Account, username=account)
+        # 유저 모델에서 팔로우를 한 유저의 정보를 가져옴
         Follow.objects.create(
             follow=account,
             follower=request.user

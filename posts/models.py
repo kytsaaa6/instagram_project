@@ -20,8 +20,8 @@ class Post(models.Model):
         if not tags:
             return
 
-        for taged in tags:
-            tag, tag_created = Tag.objects.get_or_create(name=taged)
+        for hash_tag in tags:
+            tag, tag_created = Tag.objects.get_or_create(name=hash_tag)
             self.tags.add(tag)
 
 

@@ -3,9 +3,9 @@
 {% load socialaccount %}
 
 {% block content %}
-<br>
+<br><br>
 {% if request.user.is_authenticated %}
-    {% for post in data %}
+    {% for post in posts %}
 <div id="post-container">
         <div id="post-username" align="left">
             <a href="{% url 'post_mypage' post.account %}">{{ post.account }}</a>

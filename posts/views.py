@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
 from posts.models import Post, Tag
 from accounts.models import Account, Follow
@@ -16,20 +16,19 @@ def post(request):
             follow_list = follow.followers.values_list('follow_id', flat=True)
             follower_list = follow.followers.values('follower_id')
             follow_post_list = follow_list.union(follower_list, all=False)
-            data = Post.objects.filter(account_id__in=follow_post_list)
+            posts = Post.objects.filter(account_id__in=follow_post_list)
         else:
-            data = Post.objects.all()
+            posts = Post.objects.all()
 
         context = {
-            'data': data,
+            'posts': posts,
         }
-    except:
-        data = Post.objects.all()
+    except Account.DoesNotExist:
+        posts = Post.objects.all()
         context = {
-            'data': data,
+            'posts': posts,
             'userform': userform,
         }
-
     return render(request, 'posts/post.html', context)
 
 
@@ -38,13 +37,13 @@ def my_page(request, account):
     try:
         follow = Follow.objects.get(follow=member, follower=request.user)
         context = {
-            'data': member.post_set.all,
+            'members': member.post_set.all,
             'member': member,
             'follow': follow
         }
-    except:
+    except Follow.DoesNotExist:
         context = {
-            'data': member.post_set.all,
+            'members': member.post_set.all,
             'member': member,
         }
     return render(request, 'posts/post_mypage.html', context)
@@ -66,59 +65,69 @@ def create(request):
 
 
 def update(request, post_id):
-    post = Post.objects.get(pk=post_id)
+    try:
+        post_update = Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+        raise Http404
+
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(request.POST, instance=post_update)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.account = request.user
-            post.save()
+            post_update = form.save(commit=False)
+            post_update.account = request.user
+            post_update.save()
             return redirect('post_mypage', account=request.user)
     else:
-        form = PostForm(instance=post)
+        form = PostForm(instance=post_update)
+
     return render(request, 'posts/post_update.html', {'form': form})
 
 
 def delete(request, post_id):
     try:
-        post = Post.objects.get(pk=post_id)
-        post.delete()
-        data = Post.objects.all()
-    except:
-        data = Post.objects.all()
+        post_remove = Post.objects.get(pk=post_id)
+        post_remove.delete()
+    except Post.DoesNotExist:
+        raise Http404
 
-    context = {
-        'data': data,
-    }
-    return render(request, 'posts/post.html', context)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def post_like(request, post_id):
     user = request.user
-    post = Post.objects.get(pk=post_id)
-    if post.post_like.filter(id=user.id).exists():
-        post.post_like.remove(user)
+    try:
+        like = Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+        raise Http404
+
+    if like.post_like.filter(id=user.id).exists():
+        like.post_like.remove(user)
     else:
-        post.post_like.add(user)
+        like.post_like.add(user)
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def explore(request):
-    post = Post.objects.exclude(photo__isnull=True).exclude(photo__exact='').order_by("?") # 이미지가 없거나 빈문자열이 아닌것을 랜덤으로 쿼리셋
+    post_explore = Post.objects.exclude(photo__isnull=True).exclude(photo__exact='').order_by("?")
+    # 이미지가 없거나 빈문자열이 아닌것을 랜덤으로 쿼리셋
 
     context = {
-        'data': post,
+        'post_explore': post_explore,
     }
     return render(request, 'posts/post_explore.html', context)
 
 
 def tag_list(request, tag):
-    tag_list = Tag.objects.get(name=tag)
-    posts = tag_list.post_set.all()
+    try:
+        hash_tag = Tag.objects.get(name=tag)
+    except Tag.DoesNotExist:
+        raise Http404
+    
+    posts = hash_tag.post_set.all()
     context = {
-        'data': posts,
-        'tag': tag_list
+        'posts': posts,
+        'tag': hash_tag
     }
 
     return render(request, 'posts/post_tag_list.html', context)
@@ -126,12 +135,20 @@ def tag_list(request, tag):
 
 def search(request):
     post_search = Post.objects.all()
-    search = request.GET.get('search', '')
-    searchs = post_search.filter(account__username__contains=search)|post_search.filter(text__contains='#'+search)
+    search_context = request.GET.get('search')
+    try:
+        if search_context:
+            search_result = post_search.filter(account__username__contains=search_context) | post_search.filter(text__contains='#'+search_context)
 
-    context= {
-           'data': searchs,
-           'search': search,
-    }
-    return render(request, 'posts/search.html', context)
+        context = {
+            'search_result': search_result,
+            'search': search_context,
+        }
+
+        return render(request, 'posts/search.html', context)
+    except UnboundLocalError:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+
 

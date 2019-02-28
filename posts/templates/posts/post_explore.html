@@ -9,7 +9,7 @@
   </div>
 {% if request.user.is_authenticated %}
 <div id="explore-container">
-    {% for post in data %}
+    {% for post in post_explore %}
     <div id="explore-post" align="left">
         <a href="{% url 'post_mypage' post.account %}">{{ post.account }}</a><br>
         {% if post.photo %}
