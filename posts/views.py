@@ -33,7 +33,11 @@ def post(request):
 
 
 def my_page(request, account):
-    member = Account.objects.get(username=account)
+    try:
+        member = Account.objects.get(username=account)
+    except Account.DoesNotExist:
+        raise Http404
+
     try:
         follow = Follow.objects.get(follow=member, follower=request.user)
         context = {
@@ -53,10 +57,10 @@ def create(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            posts = form.save(commit=False)
-            posts.account = request.user
-            posts.save()
-            posts.tag_save()
+            post_create = form.save(commit=False)
+            post_create.account = request.user
+            post_create.save()
+            post_create.tag_save()
             return redirect('post_mypage', account=request.user)
     else:
         form = PostForm()
@@ -76,6 +80,7 @@ def update(request, post_id):
             post_update = form.save(commit=False)
             post_update.account = request.user
             post_update.save()
+            post_update.tag_save()
             return redirect('post_mypage', account=request.user)
     else:
         form = PostForm(instance=post_update)

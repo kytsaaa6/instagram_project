@@ -25,8 +25,8 @@ class Login(auth_views.LoginView):
 def follow(request, account):
     try:
         account = get_object_or_404(Account, username=account)
-        data = Follow.objects.get(follow=account, follower=request.user)
-        data.delete()
+        follow_exist = Follow.objects.get(follow=account, follower=request.user)
+        follow_exist.delete()
     except Follow.DoesNotExist:
         account = get_object_or_404(Account, username=account)
         # 유저 모델에서 팔로우를 한 유저의 정보를 가져옴
