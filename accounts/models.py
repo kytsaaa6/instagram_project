@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
-
 
 class Account(AbstractUser):
     name = models.CharField(max_length=10)
@@ -16,7 +14,7 @@ class Account(AbstractUser):
     def total_follower(self):
         return self.follower.all().count()
 
+
 class Follow(models.Model):
     follow = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='follow')
     follower = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='follower')
-

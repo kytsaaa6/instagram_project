@@ -2,13 +2,14 @@
 {% load post_extras %}
 {% load socialaccount %}
 
-<html lang="en">
+
 <head>
     <meta charset="UTF-8">
 	{% block title %}
     <title> {{member.name}}님의 마이페이지</title>
 	{% endblock %}
 </head>
+
 <body>
 	{% block mypage %}
 	<br><br><br><br><br>
@@ -27,7 +28,6 @@
 	</div>
 	{% endblock %}
 
-
 	{% block content %}
 	{% if user == member %}
 	<div align="center"> <h2> 게시물
@@ -36,7 +36,7 @@
 	<div align="center"> <h2> 게시물 </h2> </div>
 	{% endif %}
 		<br><br>
-	{% for posts in data %}
+	{% for posts in post_mypage %}
 	<div id="mypage-container">
 		<div id="mypage-post" align="left">
 			{% if user == posts.account %}

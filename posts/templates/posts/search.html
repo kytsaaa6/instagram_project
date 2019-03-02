@@ -1,11 +1,12 @@
 {% extends "posts/layout.html" %}
 {% load post_extras %}
 
+
 <body>
 	{% block content %}
 	<br><br><br><br><br>
 
-          {% for posts in data %}
+          {% for posts in search_post %}
         <div id="post">
           <div id="username">
 		    <a href="{% url 'mypage' posts.account %}"> {{ posts.account }}</a>

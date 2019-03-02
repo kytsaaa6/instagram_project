@@ -25,5 +25,6 @@ class Post(models.Model):
             tag, tag_created = Tag.objects.get_or_create(name=t)
             self.tag_set.add(tag)  # NOTE: ManyToManyField 에 인스턴스 추가
 
+
 class Tag(models.Model):
     name = models.CharField(max_length=150, unique=True)

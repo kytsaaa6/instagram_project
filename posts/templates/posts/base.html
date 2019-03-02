@@ -3,11 +3,12 @@
 {% load socialaccount %}
 {% load staticfiles %}
 
+
 	{% block content %}
 	<br><br><br><br><br>
 
 	{% if request.user.is_authenticated %}
-          {% for posts in data %}
+          {% for posts in post_list %}
         <div id="post">
           <div id="username">
 		    <a href="{% url 'mypage' posts.account %}"> {{ posts.account }}</a>

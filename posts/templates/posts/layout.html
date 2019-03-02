@@ -1,6 +1,6 @@
-
 {% load post_extras %}
 {% load socialaccount %}
+
 
 <html lang="en">
   <head>
@@ -119,7 +119,7 @@
           {% else %}
            <ul class="nav navbar-nav navbar-right">
             <li><a href="{% url 'login' %}">로그인</a></li>
-            <li><a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Login</a></li>
+            <li><a href="{% provider_login_url 'kakao' %}">카카오계정 로그인</a></li>
             <li><a href="{% url 'signup' %}">회원가입</a></li>
            </ul>
 		  {% endif %}

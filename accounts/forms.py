@@ -1,5 +1,4 @@
 from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm
-from django.contrib.auth import authenticate
 from django import forms
 from accounts.models import Account
 
@@ -43,6 +42,7 @@ class AccountCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs),
         del self.fields['password2']
+
 
 class AccountLoginForm(AuthenticationForm):
     username = UsernameField(

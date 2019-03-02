@@ -1,6 +1,7 @@
 {% extends "posts/layout.html" %}
 {% load post_extras %}
 
+
 <body>
 	{% block content %}
 		<br><br><br><br>
@@ -8,7 +9,7 @@
 		<h1> 둘러보기 </h1>
 		</div>
 
-    	{% for posts in post %}
+    	{% for posts in explore_post %}
 		<div class="image123">
     		<div style="float:left;margin-right:10px; margin-bottom:10px;margin-left:80px;">
 			  	<a href="{% url 'mypage' posts.account %}"> {{ posts.account }}</a> <br>
