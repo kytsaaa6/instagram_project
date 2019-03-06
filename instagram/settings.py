@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.kakao',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

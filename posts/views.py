@@ -95,7 +95,7 @@ def delete(request, pk):
         post_delete = Post.objects.get(pk=pk)
         post_delete.delete()
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))  # 첫페이지로 이동하기
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
 
 
 def post_like(request, pk):
