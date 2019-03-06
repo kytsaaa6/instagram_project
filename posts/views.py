@@ -57,17 +57,10 @@ def create(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-<<<<<<< HEAD
             create_post = form.save(commit=False)
             create_post.account = request.user
             create_post.save()
             create_post.tag_save()
-=======
-            post_create = form.save(commit=False)
-            post_create.account = request.user
-            post_create.save()
-            post_create.tag_save()
->>>>>>> origin/insta_ho
             return redirect('post_mypage', account=request.user)
     else:
         form = PostForm()
@@ -84,17 +77,10 @@ def update(request, post_id):
     if request.method == "POST":
         form = PostForm(request.POST, instance=update_post)
         if form.is_valid():
-<<<<<<< HEAD
             update_post = form.save(commit=False)
             update_post.account = request.user
             update_post.save()
             update_post.tag_save()
-=======
-            post_update = form.save(commit=False)
-            post_update.account = request.user
-            post_update.save()
-            post_update.tag_save()
->>>>>>> origin/insta_ho
             return redirect('post_mypage', account=request.user)
     else:
         form = PostForm(instance=update_post)
