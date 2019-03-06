@@ -3,18 +3,66 @@
   <component name="ChangeListManager">
     <list default="true" id="677a6ac0-039b-48ac-8378-9058be887f2c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/comments/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/comments/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instagram/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/instagram/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instagram/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/instagram/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/templates/posts/post_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/posts/templates/posts/post_create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/templates/posts/post_mypage.html" beforeDir="false" afterPath="$PROJECT_DIR$/posts/templates/posts/post_mypage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/templates/posts/post_update.html" beforeDir="false" afterPath="$PROJECT_DIR$/posts/templates/posts/post_update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/photo/facebook.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_7Vi4QWp.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_8XYMNt3.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_AAHtKOf.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_AAo7eww.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_ExB9jIZ.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_FBeyeb8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_FJAVALU.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_HGpFnUq.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_QIkRDPL.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_S0E1hm6.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_VVfKgoh.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_b2zlGyf.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_c3y5LPe.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_hSc35Pw.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_hrNBva2.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_ijgWVgW.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_krIOG5y.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_nVyA3pF.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_rdLGYqW.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_tAv0n4q.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_wLR70d5.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/coffee_x2vIkbh.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gamsung_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gamsung_5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-06_오후_8.30.56.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_1GOzNuk.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_2VzITs1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_6t3bsYq.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_GJlCktR.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_HClpnvn.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_Pgr4RxB.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_QnPuREw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_XejUpE4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_cYOQ39m.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_epckRQf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_eyyZhT0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_mSS8bfR.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_pzvasYU.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_rCiSXwh.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_w7ZTGOx.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_zcb0vFJ.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-07_오후_2.37.00_zdGyYoz.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-26_오후_2.47.42.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-26_오후_2.48.02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-26_오후_2.51.14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-26_오후_2.51.14_yl3tRcx.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-26_오후_2.51.52.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-26_오후_2.51.52_G72fglo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-26_오후_2.51.52_T07B5ju.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-26_오후_2.51.52_jz3lD2M.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-26_오후_2.51.52_nfrL9e6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-26_오후_2.51.52_rUxMfiu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-27_오후_6.04.50.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/스크린샷_2019-02-27_오후_6.04.50_Vh82MpE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/인스타그램.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/인스타그램_UaoY7W1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/인스타그램_kcqkq91.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/인스타그램_tUZB9MU.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -189,6 +237,11 @@
             <path>
               <item name="instagram" type="b2602c69:ProjectViewProjectNode" />
               <item name="instagram" type="462c0819:PsiDirectoryNode" />
+              <item name="media" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="instagram" type="b2602c69:ProjectViewProjectNode" />
+              <item name="instagram" type="462c0819:PsiDirectoryNode" />
               <item name="posts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -292,21 +345,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.pyenv/versions/my_python/lib/python3.6/site-packages/django/forms/fields.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="206" column="6" selection-start-line="206" selection-start-column="6" selection-end-line="206" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.pyenv/versions/my_python/lib/python3.6/site-packages/django/forms/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6094">
-          <caret line="61" column="6" selection-start-line="61" selection-start-column="6" selection-end-line="61" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/posts/templatetags/index.py" />
     <entry file="file://$PROJECT_DIR$/posts/templatetags/post_tag.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -639,6 +677,15 @@
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/media/스크린샷_2019-02-06_오후_8.30.56.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/media/스크린샷_2019-02-27_오후_6.04.50.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/media/스크린샷_2019-02-27_오후_6.04.50_Vh82MpE.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/posts/urls.py">
       <provider selected="true" editor-type-id="text-editor">
