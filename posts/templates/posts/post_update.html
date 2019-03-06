@@ -6,12 +6,12 @@
 {% block content %}
 <div class="page-header" align="center" style="margin-top:90px;">
    <h1>Post 수정</h1>
-  </div>
-  <div id="post-create">
+</div>
+<div id="post-create">
    <form method="POST" class="post-form" enctype="multipart/form-data">
        {%csrf_token%}
        {{form.as_p}}
-     <button type="submit" class="save btn btn-default">Save</button>
+     <button type="submit" class="save btn btn-default">등록</button>
    </form>
-  </div>
+</div>
 {% endblock %}

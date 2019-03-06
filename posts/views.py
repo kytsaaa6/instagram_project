@@ -33,7 +33,11 @@ def post(request):
 
 
 def my_page(request, account):
-    member = Account.objects.get(username=account)
+    try:
+        member = Account.objects.get(username=account)
+    except Account.DoesNotExist:
+        raise Http404
+
     try:
         follow = Follow.objects.get(follow=member, follower=request.user)
         context = {
@@ -53,10 +57,10 @@ def create(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            posts = form.save(commit=False)
-            posts.account = request.user
-            posts.save()
-            posts.tag_save()
+            create_post = form.save(commit=False)
+            create_post.account = request.user
+            create_post.save()
+            create_post.tag_save()
             return redirect('post_mypage', account=request.user)
     else:
         form = PostForm()
@@ -66,19 +70,20 @@ def create(request):
 
 def update(request, post_id):
     try:
-        post_update = Post.objects.get(pk=post_id)
+        update_post = Post.objects.get(pk=post_id)
     except Post.DoesNotExist:
         raise Http404
 
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post_update)
+        form = PostForm(request.POST, instance=update_post)
         if form.is_valid():
-            post_update = form.save(commit=False)
-            post_update.account = request.user
-            post_update.save()
+            update_post = form.save(commit=False)
+            update_post.account = request.user
+            update_post.save()
+            update_post.tag_save()
             return redirect('post_mypage', account=request.user)
     else:
-        form = PostForm(instance=post_update)
+        form = PostForm(instance=update_post)
 
     return render(request, 'posts/post_update.html', {'form': form})
 
@@ -124,9 +129,9 @@ def tag_list(request, tag):
     except Tag.DoesNotExist:
         raise Http404
     
-    posts = hash_tag.post_set.all()
+    hash_post = hash_tag.post_set.all()
     context = {
-        'posts': posts,
+        'posts': hash_post,
         'tag': hash_tag
     }
 
@@ -138,7 +143,8 @@ def search(request):
     search_context = request.GET.get('search')
     try:
         if search_context:
-            search_result = post_search.filter(account__username__contains=search_context) | post_search.filter(text__contains='#'+search_context)
+            search_result = post_search.filter(account__username__contains=search_context) \
+                            | post_search.filter(text__contains='#'+search_context)
 
         context = {
             'search_result': search_result,
@@ -146,6 +152,7 @@ def search(request):
         }
 
         return render(request, 'posts/search.html', context)
+
     except UnboundLocalError:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 

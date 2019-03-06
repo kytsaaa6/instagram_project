@@ -9,7 +9,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <!--<link rel="icon" href="../../favicon.ico">-->
     {% block title %}
     <title>InstaGram</title>
     {% endblock %}
@@ -83,11 +83,11 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="{% url 'posts_post' %}">InstaGram</a>
+          <a class="navbar-brand" href="{% url 'home' %}">InstaGram</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'posts_post' %}">Home</a></li>
+            <li class="active"><a href="{% url 'home' %}">Home</a></li>
           </ul>
             {% if request.user.is_authenticated %}
           <ul class="nav navbar-nav navbar-right">
@@ -107,7 +107,7 @@
             {% else %}
           <ul class="nav navbar-nav navbar-right">
               <li><a href="{% url 'login' %}">로그인</a></li>
-              <li><a href="{% provider_login_url 'kakao' %}">카카오톡 로그인</a></li>
+              <li><a href="{% provider_login_url 'kakao' %}">카카오계정 로그인</a></li>
               {% block signup %}
               {% endblock %}
           </ul>
